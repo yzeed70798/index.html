@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وزارة الداخلية بدولة SM - النظام القيادي</title>
+    <!-- استيراد الخطوط والأيقونات المتطابقة مع الهوية العسكرية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #030712;
+            --bg-card: #0b1528;
+            --bg-card-hover: #111f38;
+            --accent-green: #16a34a;
+            --accent-blue: #38bdf8;
+            --accent-red: #ef4444;
+            --text-white: #ffffff;
+            --text-muted: #64748b;
+            --border-color: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px;
+        }
+
+        /* حاوية الهاتف الذكي */
+        .phone-container {
+            width: 100%;
+            max-width: 412px;
+            background-color: var(--bg-dark);
+            min-height: 850px;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            padding-bottom: 90px;
+        }
+
+        /* شاشة التحميل الذكية */
+        .loading-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-dark);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-logo {
+            width: 120px;
+            height: 120px;
+            border: 3px solid var(--accent-green);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(22, 163, 74, 0.2);
+            padding: 5px;
+            background-color: rgba(11, 21, 40, 0.4);
+        }
+
+        .loading-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .loading-bar {
+            width: 140px;
+            height: 4px;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading-bar::after {
+            content: '';
+            position: absolute;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+            animation: flow 1.5s infinite linear;
+        }
+
+        .loading-text {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: var(--accent-blue);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        @keyframes flow {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* 📢 شريط الإعلانات العاجلة والمتحركة */
+        .ticker-wrapper {
+            background-color: rgba(239, 68, 68, 0.15);
+            border-bottom: 1px solid var(--accent-red);
+            padding: 6px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker-text {
+            display: inline-block;
+            padding-right: 100%;
+            animation: ticker 18s linear infinite;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #f87171;
+        }
+
+        @keyframes ticker {
+            0% { transform: translate3d(100%, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* الهيدر والشريط العلوي */
+        .header {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .logo-wrapper {
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--accent-green);
+            border-radius: 50%;
+            margin: 0 auto 16px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(22, 163, 74, 0.2);
+            padding: 4px;
+            background-color: rgba(11, 21, 40, 0.3);
+        }
+
+        .logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .chevron-down {
+            margin-top: 20px;
+            color: var(--accent-blue);
+            font-size: 1.3rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-6px); }
+            60% { transform: translateY(-3px); }
+        }
+
+        /* 📜 قسم قوانين وزارة الداخلية */
+        .laws-section {
+            margin-top: 35px;
+            padding: 0 20px;
+        }
+
+        .laws-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .laws-header-title {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+        }
+
+        .laws-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .laws-list li {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding-bottom: 8px;
+        }
+
+        .laws-list li strong {
+            color: var(--accent-green);
+            margin-left: 4px;
+        }
+
+        .laws-notice {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px dashed var(--accent-red);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 0.78rem;
+            color: #f87171;
+            line-height: 1.5;
+        }
+
+        /* قسم المستجدات والأخبار */
+        .press-section {
+            margin-top: 40px;
+            padding: 0 20px;
+        }
+
+        .press-title {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--accent-blue);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .press-heading {
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .news-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .news-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(56, 189, 248, 0.15);
+            color: var(--accent-blue);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .news-card i {
+            font-size: 2rem;
+            color: rgba(255,255,255,0.05);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .news-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .news-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .news-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* الهيكل القيادي */
+        .section-title {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 24px;
+        }
+
+        .section-title h2 {
+            font-size: 1.6rem;
+            font-weight: 900;
+        }
+
+        .section-title p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        .hierarchy-group {
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+
+        .group-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-top: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+        }
+
+        .leader-node {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(11, 21, 40, 0.6) 100%);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 14px;
+            text-align: center;
+            position: relative;
+        }
+
+        .leader-node::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 3px;
+            background-color: var(--accent-blue);
+            border-radius: 0 0 3px 3px;
+        }
+
+        .leader-node h3 {
+            font-size: 1.25rem;
+            font-weight: 900;
+        }
+
+        .leader-node p {
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        /* نظام القوائم للقطاعات */
+        .sectors-section {
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sector-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .sector-header {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .sector-title-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .sector-title-text i {
+            color: var(--accent-blue);
+            font-size: 1.1rem;
+        }
+
+        .sector-chevron {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        .sector-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: rgba(3, 7, 18, 0.4);
+        }
+
+        .sector-item.active {
+            border-color: rgba(56, 189, 248, 0.3);
+            background-color: var(--bg-card-hover);
+        }
+
+        .sector-item.active .sector-chevron {
+            transform: rotate(180deg);
+            color: var(--accent-blue);
+        }
+
+        .sector-item.active .sector-content {
+            max-height: 200px;
+            padding: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .leader-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .leader-box h4 {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .leader-box p {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        .sector-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .status-none {
+            color: #f87171 !important;
+            font-weight: 400 !important;
+        }
+
+        /* 📱 زر الجوال الأمني التفاعلي المعلق */
+        .phone-trigger-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent-green), #059669);
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.6rem;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(22, 163, 74, 0.6);
+            z-index: 90;
+            transition: transform 0.2s ease;
+        }
+
+        .phone-trigger-btn:hover {
+            transform: translateX(-50%) scale(1.08);
+        }
+
+        /* شاشة الجوال وتطبيق SM ونظام الـ MDT */
+        .mdt-phone-modal {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 85%;
+            background-color: #060d1a;
+            border-top: 4px solid var(--accent-green);
+            border-radius: 24px 24px 0 0;
+            z-index: 95;
+            transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .mdt-phone-modal.open {
+            bottom: 0;
+        }
+
+        .phone-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .phone-modal-header h3 {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .phone-modal-header h3 i {
+            color: var(--accent-green);
+        }
+
+        .close-phone-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+
+        /* واجهة تسجيل الدخول */
+        .auth-container {
+            text-align: center;
+            padding: 30px 10px;
+        }
+
+        .auth-logo {
+            font-size: 3.5rem;
+            color: var(--accent-green);
+            margin-bottom: 15px;
+        }
+
+        .duty-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            margin-bottom: 12px;
+            transition: background 0.2s;
+        }
+
+        .btn-login {
+            background-color: var(--accent-green);
+            color: white;
+        }
+
+        .btn-logout {
+            background-color: var(--accent-red);
+            color: white;
+        }
+
+        /* تبويبات التطبيق */
+        .app-internal-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .app-tab-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .app-tab-btn.active {
+            background-color: rgba(22, 163, 74, 0.15);
+            border-color: var(--accent-green);
+            color: white;
+        }
+
+        .phone-panel {
+            display: none;
+        }
+
+        .phone-panel.active {
+            display: block;
+        }
+
+        /* قائمة المباشرين */
+        .active-units-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .unit-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .unit-badge {
+            background-color: rgba(56, 189, 248, 0.15);
+            color: var(--accent-blue);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* مدخلات الـ MDT */
+        .input-wrapper {
+            margin-bottom: 12px;
+        }
+
+        .input-wrapper label {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .phone-form-input {
+            width: 100%;
+            background-color: #0b1528;
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.88rem;
+            outline: none;
+        }
+
+        .phone-form-input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .mdt-submit-btn {
+            width: 100%;
+            background-color: var(--accent-blue);
+            color: #030712;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        /* نتايج الـ MDT */
+        .mdt-results-box {
+            background-color: #0c192e;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .badge-danger {
+            background-color: var(--accent-red);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .badge-success {
+            background-color: var(--accent-green);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-container">
+
+        <!-- شاشة التحميل الذكية -->
+        <div class="loading-screen" id="loadingScreen">
+            <div class="loading-logo">
+                <img src="https://i.ibb.co/3Yv4YfC/12896.png" alt="SM Logo">
+            </div>
+            <div class="loading-bar"></div>
+            <div class="loading-text">INITIALIZING SECURE ACCESS</div>
+        </div>
+
+        <!-- 📢 شريط الإعلانات العاجلة -->
+        <div class="ticker-wrapper">
+            <div class="ticker-text">🚨 تعميم عاجل من وزارة الداخلية: يجب على كافة القطاعات الميدانية الالتزام بالربط العملياتي فور النزول للميدان | يرجى مراجعة وتحديث اللائحة التنظيمية وقائمة المطلوبين بانتظام.</div>
+        </div>
+
+        <!-- الهيدر والشعار -->
+        <div class="header">
+            <div class="logo-wrapper">
+                <img src="https://i.ibb.co/3Yv4YfC/12896.png" alt="وزارة الداخلية بدولة SM">
+            </div>
+            <h1>وزارة الداخلية بدولة SM</h1>
+            <p>أمان الوطن.. مسؤوليتنا</p>
+            <div class="chevron-down">
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <!-- 📜 قسم قوانين وزارة الداخلية المطور -->
+        <div class="laws-section">
+            <div class="laws-card">
+                <div class="laws-header-title">﷽ <br> قوانين الداخلية</div>
+                <ul class="laws-list">
+                    <li><strong>1 -</strong> يجب على جميع منسوبي إدارة الشرطة احترام جميع المواطنين والوظائف الحكومية الأخرى.</li>
+                    <li><strong>2 -</strong> الجدية في العمل وعدم أخذ الوظيفة على محمل كوميدي، ويجب عليك تقمص شخصية العسكري لأبعد حد بالتصرفات والأقوال.</li>
+                    <li><strong>3 -</strong> يسمح لرجل الأمن تفتيش مركبة الشخص في المواقع الجنائية والبلاغات الجنائية، أو التعميم على مركبة من قبل رجل أمن، وحالات الاشتباه.</li>
+                    <li><strong>4 -</strong> قبل إرسال الشخص إلى السجن يجب تفتيشه وأخذ جميع الأدوات الإجرامية التي يحملها وإرساله للسجن.</li>
+                    <li><strong>5 -</strong> يمنع تفتيش أي مواطن إلا في حالات الاشتباه مثل [ لبس القناع ]، ويجب الاستماع إلى المواطن وفي حال كان له سبب مقنع يجب على المواطن إزالته إن لزم الأمر.</li>
+                    <li><strong>6 -</strong> يمنع رفع السلاح الناري على المواطن بدون سبب مقنع.</li>
+                    <li><strong>7 -</strong> لا يحق لك مشاركة القوانين والعهدة العسكرية لأي من كان، سواء مواطن أو الوظائف الحكومية الأخرى.</li>
+                    <li><strong>8 -</strong> يمنع إسقاط أي مواطن أعزل.</li>
+                    <li><strong>9 -</strong> يجب على أفراد الأمن تقدير الحياة.</li>
+                    <li><strong>10 -</strong> يمنع كلبشة المواطن دون وجه حق، ويجب الإفصاح عن سبب القبض.</li>
+                    <li><strong>11 -</strong> يمنع الشتم أو مضايقة أي لاعب.</li>
+                    <li><strong>12 -</strong> ممنوع منعاً باتاً عصيان أوامر الرتب العليا.</li>
+                    <li><strong>13 -</strong> في حال المطاردة يجب عليك عدم الصدم والحفاظ على حياتك، وترك مسافة بسيطة بينك وبين الهارب لتجنب الصدم.</li>
+                    <li><strong>14 -</strong> ممنوع منعاً باتاً المباشرة في الميدان دون دخول موجه قطاعك داخل اللعبة، مثال ( 4 - 5 - 9 .. الخ ).</li>
+                    <li><strong>15 -</strong> مدة التحقيق مع المواطن لا تتعدى 20 دقيقة، في حال أن المواطن لم يستجيب (ساكت أو مأفك) يعتبر تخريب سيناريو ويحاسب عليه إدارياً.</li>
+                </ul>
+                <div class="laws-notice">
+                    <strong>تــنــويـــه : ❗️</strong><br>
+                    القوانين قابلة للتعديل يرجى الإطلاع عليها بين كل فترة، تجاهلك أو عدم علمك بالقانون لن يعفيك من العقوبة.
+                </div>
+            </div>
+        </div>
+
+        <!-- مركز الأخبار والمستجدات -->
+        <div class="press-section">
+            <div class="press-title">PRESS CENTER</div>
+            <div class="press-heading">آخر المستجدات</div>
+
+            <div class="news-card">
+                <div class="news-badge">محمد الدوسري</div>
+                <i class="fa-solid fa-handcuffs"></i>
+                <div class="news-time">أمس</div>
+                <h3>قائمة المطلوبين</h3>
+                <p>بإشراف معالي نائب وزير الداخلية، تم تحديث وإضافة قائمة المطلوبين في النظام المركزي.</p>
+            </div>
+
+            <div class="news-card">
+                <div class="news-badge">المقبولين</div>
+                <i class="fa-solid fa-microchip"></i>
+                <div class="news-time">أمس</div>
+                <h3>دفعة جديدة</h3>
+                <p>تعلن وزارة الداخلية بدولة SM عن إنزال الدفعة السنوية الجديدة للمقبولين في القطاعات الأمنية.</p>
+            </div>
+        </div>
+
+        <!-- الهيكل القيادي لوزارة الداخلية -->
+        <div class="section-title">
+            <h2>الهيكل القيادي</h2>
+            <p>MINISTRY OF INTERIOR LEADERSHIP</p>
+        </div>
+
+        <div class="hierarchy-group">
+            <div class="group-label">القيادة العليا</div>
+            <div class="leader-node">
+                <h3>نواف العتيبي</h3>
+                <p>وزير الداخلية</p>
+            </div>
+            <div class="leader-node">
+                <h3>يزيد عسيري</h3>
+                <p>نائب وزير الداخلية</p>
+            </div>
+            <div class="group-label">الأمن العام</div>
+            <div class="leader-node">
+                <h3>إياد جبران</h3>
+                <p>مدير الأمن العام</p>
+            </div>
+            <div class="leader-node">
+                <h3>سلطان الشمري</h3>
+                <p>نائب مدير الأمن العام</p>
+            </div>
+        </div>
+
+        <!-- قسم القطاعات الأمنية -->
+        <div class="section-title">
+            <h2>القطاعات الأمنية</h2>
+            <p>MAIN SECTORS</p>
+        </div>
+
+        <div class="sectors-section">
+            <!-- قطاع 1 -->
+            <div class="sector-item">
+                <div class="sector-header" onclick="toggleSector(this)">
+                    <div class="sector-title-text">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <span>قوات الأمن الخاصة</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down sector-chevron"></i>
+                </div>
+                <div class="sector-content">
+                    <div class="leader-info">
+                        <div class="leader-box">
+                            <h4>القائد المسؤول</h4>
+                            <p class="status-none">لا يوجد</p>
+                        </div>
+                        <div class="leader-box">
+                            <h4>النائب</h4>
+                            <p class="status-none">لا يوجد</p>
+                        </div>
+                    </div>
+                    <p class="sector-desc">تختص بمكافحة الإرهاب، حماية الشخصيات الهامة، والتدخل السريع العسكري المباشر.</p>
+                </div>
+            </div>
+
+            <!-- قطاع 2 -->
+            <div class="sector-item">
+                <div class="sector-header" onclick="toggleSector(this)">
+                    <div class="sector-title-text">
+                        <i class="fa-solid fa-eye"></i>
+                        <span>المباحث العامة</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down sector-chevron"></i>
+                </div>
+                <div class="sector-content">
+                    <div class="leader-info">
+                        <div class="leader-box">
+                            <h4>القائد المسؤول</h4>
+                            <p class="status-none">لا يوجد</p>
+                        </div>
+                        <div class="leader-box">
+                            <h4>النائب</h4>
+                            <p class="status-none">لا يوجد</p>
+                        </div>
+                    </div>
+                    <p class="sector-desc">جهاز استخباراتي داخلي، يُعنى بالمحافظة على الكيان السياسي والأمن القومي للدولة.</p>
+                </div>
+            </div>
+
+            <!-- قطاع 3 -->
+            <div class="sector-item">
+                <div class="sector-header" onclick="toggleSector(this)">
+                    <div class="sector-title-text">
+                        <i class="fa-solid fa-building-shield"></i>
+                        <span>الشرطة العسكرية</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down sector-chevron"></i>
+                </div>
+                <div class="sector-content">
+                    <div class="leader-info">
+                        <div class="leader-box">
+                            <h4>القائد المسؤول</h4>
+                            <p class="status-none">لا يوجد</p>
+                        </div>
+                        <div class="leader-box">
+                            <h4>النائب</h4>
+                            <p class="status-none">لا يوجد</p>
+                        </div>
+                    </div>
+                    <p class="sector-desc">مسؤولة عن حفظ الضبط العسكري وتأمين وحراسة المنشآت الحيوية والوزارية للدولة.</p>
+                </div>
+            </div>
+
+            <!-- قطاع 4 -->
+            <div class="sector-item">
+                <div class="sector-header" onclick="toggleSector(this)">
+                    <div class="sector-title-text">
+                        <i class="fa-solid fa-car-side"></i>
+                        <span>دوريات الأمن</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down sector-chevron"></i>
+                </div>
+                <div class="sector-content">
+                    <div class="leader-info">
+                        <div class="leader-box">
+                            <h4>القائد المسؤول</h4>
+                            <p>إياد جبران</p>
+                        </div>
+                        <div class="leader-box">
+                            <h4>النائب</h4>
+                            <p>سلطان الشمري</p>
+                        </div>
+                    </div>
+                    <p class="sector-desc">الذراع الميداني الأساسي للاستجابة المباشرة للبلاغات الجنائية، وتنسيق وتكثيف التواجد الأمني بالأحياء.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📱 زر الجوال الأمني التفاعلي المعلق السفلي -->
+        <div class="phone-trigger-btn" onclick="togglePhoneApp()">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+        </div>
+
+        <!-- شاشة الجوال وتطبيق SM ونظام الـ MDT -->
+        <div class="mdt-phone-modal" id="phoneModal">
+            <div class="phone-modal-header">
+                <h3><i class="fa-solid fa-shield-halved"></i> تطبيق نظام SM العسكري</h3>
+                <button class="close-phone-btn" onclick="togglePhoneApp()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- واجهة قبل تسجيل الدخول -->
+            <div id="authScreen" class="auth-container">
+                <div class="auth-logo"><i class="fa-solid fa-id-card-clip"></i></div>
+                <p style="margin-bottom: 20px; font-size: 0.95rem; font-weight: 700; color: var(--text-muted);">يرجى تسجيل الدخول العسكري لبدء المباشرة</p>
+                <button class="duty-btn btn-login" onclick="performDutyLogin()">تسجيل دخول (On Duty)</button>
+            </div>
+
+            <!-- واجهة ما بعد تسجيل الدخول -->
+            <div id="appScreen" style="display: none;">
+                <div class="app-internal-tabs">
+                    <button class="app-tab-btn active" id="btnTabMdt" onclick="switchPhoneTab('mdt')">جهاز الـ MDT</button>
+                    <button class="app-tab-btn" id="btnTabLive" onclick="switchPhoneTab('live')">المباشرين في الميدان</button>
+                </div>
+
+                <!-- لوحة نظام الـ MDT الجنائي -->
+                <div class="phone-panel active" id="panelMdt">
+                    <div style="display: flex; gap: 5px; margin-bottom: 15px;">
+                        <button class="app-tab-btn active" id="btnSubCheck" onclick="switchMdtSub('check')">كشف التعاميم</button>
+                        <button class="app-tab-btn" id="btnSubAdd" onclick="switchMdtSub('add')">قضية جديدة</button>
+                    </div>
+
+                    <!-- كشف التعاميم -->
+                    <div id="subPanelCheck">
+                        <div class="input-wrapper">
+                            <label>اسم المشتبه به أو رقم المركبة</label>
+                            <input type="text" class="phone-form-input" id="mdtSearchInput" placeholder="اكتب اسم الشخص للاستعلام...">
+                        </div>
+                        <button class="mdt-submit-btn" onclick="searchCriminalRecord()">استعلام مركزي فوري</button>
+                        <div class="mdt-results-box" id="mdtResults"></div>
+                    </div>
+
+                    <!-- إضافة قضية جديدة -->
+                    <div id="subPanelAdd" style="display: none;">
+                        <div class="input-wrapper">
+                            <label>اسم الشخص (حساب الديسكورد)</label>
+                            <input type="text" class="phone-form-input" id="caseDiscord" placeholder="مثال: User#1111">
+                        </div>
+                        <div class="input-wrapper">
+                            <label>التهمة / نوع المخالفة الجنائية</label>
+                            <input type="text" class="phone-form-input" id="caseTitle" placeholder="مثال: سطو مسلح / تخريب سيناريو">
+                        </div>
+                        <div class="input-wrapper">
+                            <label>مدة السجن وقيمة الغرامة</label>
+                            <input type="text" class="phone-form-input" id="caseFine" placeholder="مثال: 20 دقيقة سجن / 5000$ غرامة">
+                        </div>
+                        <button class="mdt-submit-btn" style="background-color: var(--accent-green); color: white;" onclick="submitCaseToMdt()">تسجيل القضية رسمياً</button>
+                    </div>
+                </div>
+
+                <!-- لوحة المباشرين في الميدان -->
+                <div class="phone-panel" id="panelLive">
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">الوحدات والدوريات النشطة حالياً في الميدان:</p>
+                    <div class="active-units-list">
+                        <div class="unit-item">
+                            <div>
+                                <h4 style="font-size:0.85rem;">إياد جبران</h4>
+                                <p style="font-size:0.7rem; color: var(--accent-blue);">قطاع: دوريات الأمن</p>
+                            </div>
+                            <span class="unit-badge">كولsign: 4-1</span>
+                        </div>
+                        <div class="unit-item">
+                            <div>
+                                <h4 style="font-size:0.85rem;">سلطان الشمري</h4>
+                                <p style="font-size:0.7rem; color: var(--accent-blue);">قطاع: دوريات الأمن</p>
+                            </div>
+                            <span class="unit-badge">كولsign: 4-2</span>
+                        </div>
+                        <div class="unit-item" style="border-right: 3px solid var(--accent-green);">
+                            <div>
+                                <h4 style="font-size:0.85rem;">أنت (رجل أمن نشط)</h4>
+                                <p style="font-size:0.7rem; color: var(--accent-green);">الحالة: متصل بالعمليات</p>
+                            </div>
+                            <span class="unit-badge" style="background-color: rgba(22, 163, 74, 0.2); color: var(--accent-green);">مباشر</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- زر تسجيل الخروج -->
+                <button class="duty-btn btn-logout" style="margin-top: 25px; padding: 10px; font-size: 0.85rem;" onclick="performDutyLogout()">تسجيل خروج (Off Duty)</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // إخفاء شاشة التحميل
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loadingScreen');
+                if(loader) loader.classList.add('fade-out');
+            }, 1500);
+        });
+
+        function toggleSector(header) {
+            const currentItem = header.parentElement;
+            document.querySelectorAll('.sector-item').forEach(item => {
+                if (item !== currentItem) item.classList.remove('active');
+            });
+            currentItem.classList.toggle('active');
+        }
+
+        function togglePhoneApp() {
+            document.getElementById('phoneModal').classList.toggle('open');
+        }
+
+        function performDutyLogin() {
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('appScreen').style.display = 'block';
+        }
+
+        function performDutyLogout() {
+            document.getElementById('appScreen').style.display = 'none';
+            document.getElementById('authScreen').style.display = 'block';
+        }
+
+        function switchPhoneTab(tabName) {
+            document.getElementById('btnTabMdt').classList.remove('active');
+            document.getElementById('btnTabLive').classList.remove('active');
+            document.getElementById('panelMdt').classList.remove('active');
+            document.getElementById('panelLive').classList.remove('active');
+
+            if(tabName === 'mdt') {
+                document.getElementById('btnTabMdt').classList.add('active');
+                document.getElementById('panelMdt').classList.add('active');
+            } else {
+                document.getElementById('btnTabLive').classList.add('active');
+                document.getElementById('panelLive').classList.add('active');
+            }
+        }
+
+        function switchMdtSub(subName) {
+            document.getElementById('btnSubCheck').classList.remove('active');
+            document.getElementById('btnSubAdd').classList.remove('active');
+            document.getElementById('subPanelCheck').style.display = 'none';
+            document.getElementById('subPanelAdd').style.display = 'none';
+
+            if(subName === 'check') {
+                document.getElementById('btnSubCheck').classList.add('active');
+                document.getElementById('subPanelCheck').style.display = 'block';
+            } else {
+                document.getElementById('btnSubAdd').classList.add('active');
+                document.getElementById('subPanelAdd').style.display = 'block';
+            }
+        }
+
+        function searchCriminalRecord() {
+            const name = document.getElementById('mdtSearchInput').value.trim();
+            const resultsBox = document.getElementById('mdtResults');
+
+            if(!name) {
+                alert('الرجاء إدخال اسم أو رقم اللوحة للاستعلام عنه.');
+                return;
+            }
+
+            resultsBox.style.display = 'block';
+            if(name.length % 2 === 0) {
+                resultsBox.innerHTML = `
+                    <span class="badge-danger"><i class="fa-solid fa-triangle-exclamation"></i> مطلوب أمنياً</span>
+                    <h4 style="font-size: 0.85rem; margin-top: 5px;">الهدف: ${name}</h4>
+                    <p style="font-size:0.75rem; color: var(--text-muted); margin-top:3px;">الحالة: تعميم هروب وتخريب سيناريو نشط. يجب تفتيشه وحجزه فوراً.</p>
+                `;
+            } else {
+                resultsBox.innerHTML = `
+                    <span class="badge-success"><i class="fa-solid fa-circle-check"></i> السجل سليم</span>
+                    <h4 style="font-size: 0.85rem; margin-top: 5px;">الهدف: ${name}</h4>
+                    <p style="font-size:0.75rem; color: var(--text-muted); margin-top:3px;">الحالة: لا توجد تعاميم مسجلة في الـ MDT المركزي.</p>
+                `;
+            }
+        }
+
+        function submitCaseToMdt() {
+            const discord = document.getElementById('caseDiscord').value.trim();
+            const title = document.getElementById('caseTitle').value.trim();
+            const fine = document.getElementById('caseFine').value.trim();
+
+            if(!discord || !title || !fine) {
+                alert('الرجاء تعبئة كافة الحقول لتسجيل القضية في النظام.');
+                return;
+            }
+
+            alert(`🚨 تم إدراج القضية بنجاح في قاعدة بيانات الـ MDT لدولة SM!\n\nالمتهم: ${discord}\nالتهمة: ${title}\nالعقوبة: ${fine}`);
+            
+            document.getElementById('caseDiscord').value = '';
+            document.getElementById('caseTitle').value = '';
+            document.getElementById('caseFine').value = '';
+        }
+    </script>
+</body>
+</html>
