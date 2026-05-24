@@ -1166,31 +1166,40 @@
     </head>
 <body>
     
-    <script>
-        // 1. دالة الإرسال لـ Discord
-        async function sendToDiscord(content) {
-            const https://discord.com/api/webhooks/1508163560071495881/BnLyUhMfXs0cTCRZZOrKa7VXfrji09-bF8cPBsVtpeFwEmzZKdlMYxagEX7SeTR51rfW= "https://discord.com/api/webhooks/1508163560071495881/BnLyUhMfXs0cTCRZZOrKa7VXfrji09-bF8cPBsVtpeFwEmzZKdlMYxagEX7SeTR51rfW";
-            try {
-                await fetch(https://discord.com/api/webhooks/1508163560071495881/BnLyUhMfXs0cTCRZZOrKa7VXfrji09-bF8cPBsVtpeFwEmzZKdlMYxagEX7SeTR51rfW, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ content: content })
-                });
-            } catch (error) {
-                console.error("خطأ في إرسال الويب هوك:", error);
-            }
-        }
+    <script>: " + title);
+        }<button onclick="submitCase()">تسجيل القضية</button>
+<button onclick="logLogin('اسم_المستخدم')">تسجيل دخول</button>
 
-        // 2. دالة تسجيل القضية
-        function submitCaseToMDT() {
-            const title = document.getElementById('title_id').value; // تأكد من وضع ID صحيح
-            
-            // الكود الخاص بك لمعالجة البيانات هنا...
-            
-            // عند نجاح العملية:
-            sendToDiscord("🚨 تم تسجيل قضية جديدة: " + title);
-        }
     </script>
 </body>
 </html>
+// دالة الإرسال العامة (استبدل الرابط برابط جديد بعد حذفه)
+async function sendToDiscord(message) {
+    const webhookUrl = "YOUR_NEW_WEBHOOK_URL_HERE"; // ضع الرابط الجديد هنا
+    try {
+        await fetch(webhookUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ content: message })
+        });
+    } catch (error) {
+        console.error("خطأ في إرسال الويب هوك:", error);
+    }
+}
+
+// دالة تسجيل القضية
+function submitCase() {
+    const title = document.getElementById('title_id').value;
+    sendToDiscord("🚨 تم تسجيل قضية جديدة: " + title);
+}
+
+// دالة تسجيل الدخول
+function logLogin(username) {
+    sendToDiscord("🔑 قام العضو " + username + " بتسجيل الدخول.");
+}
+
+// دالة تسجيل الخروج
+function logLogout(username) {
+    sendToDiscord("🚪 قام العضو " + username + " بتسجيل الخروج.");
+}
 
