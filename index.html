@@ -1155,3 +1155,27 @@
     </script>
 </body>
 </html>
+
+function submitCaseToMDT() {
+    const discord = document.getElementById('...').value;
+    const title = document.getElementById('...').value;
+    const fine = document.getElementById('...').value;
+
+    // ... الكود الخاص بك الحالي ...
+
+    // هنا تضع أمر الإرسال بعد أن يتم التأكد من أن القضية سجلت بنجاح:
+    sendToDiscord("🚨 تم تسجيل قضية جديدة: " + title + " ضد العضو: " + discord);
+}
+async function sendToDiscord(content) {
+    const webhookUrl = "https://discord.com/api/webhooks/1508163560071495881/BnLyUhMfXs0cTCRZZOrKa7VXfrji09-bF8cPBsVtpeFwEmzZKdlMYxagEX7SeTR51rfW";
+    try {
+        await fetch(webhookUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ content: content })
+        });
+    } catch (error) {
+        console.error("خطأ:", error);
+    }
+}
+
