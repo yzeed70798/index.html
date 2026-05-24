@@ -1,33 +1,3 @@
-async function sendToDiscord(content) {
-    const webhookUrl = "https://discord.com/api/webhooks/1508163560071495881/BnLyUhMfXs0cTCRZZOrKa7VXfrji09-bF8cPBsVtpeFwEmzZKdlMYxagEX7SeTR51rfW";
-    
-    try {
-        await fetch(webhookUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                content: content
-            })
-        });
-    } catch (error) {
-        console.error("خطأ في إرسال الويب هوك:", error);
-    }
-}
-
-
-function submitCaseToMDT() {
-    const discord = document.getElementById('...').value;
-    const title = document.getElementById('...').value;
-    const fine = document.getElementById('...').value;
-
-    // ... الكود الخاص بك الحالي ...
-
-    // هنا تضع أمر الإرسال بعد أن يتم التأكد من أن القضية سجلت بنجاح:
-    sendToDiscord("🚨 تم تسجيل قضية جديدة: " + title + " ضد العضو: " + discord);
-}
-
 
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -1189,4 +1159,38 @@ function submitCaseToMDT() {
 );
     }
 }
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    </head>
+<body>
+    
+    <script>
+        // 1. دالة الإرسال لـ Discord
+        async function sendToDiscord(content) {
+            const webhookUrl = "رابط_الـ_Webhook_الخاص_بك";
+            try {
+                await fetch(webhookUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ content: content })
+                });
+            } catch (error) {
+                console.error("خطأ في إرسال الويب هوك:", error);
+            }
+        }
+
+        // 2. دالة تسجيل القضية
+        function submitCaseToMDT() {
+            const title = document.getElementById('title_id').value; // تأكد من وضع ID صحيح
+            
+            // الكود الخاص بك لمعالجة البيانات هنا...
+            
+            // عند نجاح العملية:
+            sendToDiscord("🚨 تم تسجيل قضية جديدة: " + title);
+        }
+    </script>
+</body>
+</html>
 
