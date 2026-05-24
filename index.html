@@ -1172,34 +1172,6 @@
 
     </script>
 </body>
-</html>
-// دالة الإرسال العامة (استبدل الرابط برابط جديد بعد حذفه)
-async function sendToDiscord(message) {
-    const webhookUrl = "YOUR_NEW_WEBHOOK_URL_HERE"; // ضع الرابط الجديد هنا
-    try {
-        await fetch(webhookUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ content: message })
-        });
-    } catch (error) {
-        console.error("خطأ في إرسال الويب هوك:", error);
-    }
-}
-
-// دالة تسجيل القضية
-function submitCase() {
-    const title = document.getElementById('title_id').value;
-    sendToDiscord("🚨 تم تسجيل قضية جديدة: " + title);
-}
-
-// دالة تسجيل الدخول
-function logLogin(username) {
-    sendToDiscord("🔑 قام العضو " + username + " بتسجيل الدخول.");
-}
-
-// دالة تسجيل الخروج
-function logLogout(username) {
-    sendToDiscord("🚪 قام العضو " + username + " بتسجيل الخروج.");
+</html>.");
 }
 
